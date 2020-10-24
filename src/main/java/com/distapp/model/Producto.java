@@ -1,7 +1,10 @@
 package com.distapp.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
@@ -17,8 +20,10 @@ public class Producto extends BaseEntity {
 	@Column(unique = true)
 	private String codigobarras;
 	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private UnidadMedida unidadmedida;
 	@Null
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Marca marca;
 	@NotNull
 	private Double precioventa;

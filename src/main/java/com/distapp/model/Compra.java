@@ -3,12 +3,17 @@ package com.distapp.model;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 import com.distapp.model.enums.EstadoFacturaCompra;
@@ -17,6 +22,15 @@ import com.distapp.model.enums.TipoFactura;
 @Entity(name = "Compra")
 @Table(name = "compra")
 public class Compra {
+	
+	@Id
+	@GeneratedValue(
+			strategy = GenerationType.IDENTITY
+			)
+	private Long id;
+	
+	@Version
+	private Integer version;
 
 	@NotNull
 	@Temporal(TemporalType.DATE)
@@ -128,6 +142,22 @@ public class Compra {
 
 	public void setTipoFactura(TipoFactura tipoFactura) {
 		this.tipoFactura = tipoFactura;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 	
 	

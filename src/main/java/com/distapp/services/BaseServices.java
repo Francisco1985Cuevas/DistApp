@@ -1,15 +1,14 @@
 package com.distapp.services;
 
-import java.util.Collection;
+import java.util.List;
 
-import org.springframework.stereotype.Service;
-
-@Service
 public interface BaseServices<T> {
+	//Esta seria mi Clase Principal o General de la cual heredan todas las demas.
 	
 	public abstract void create(T t);
 	public abstract void update(T t);
 	public abstract void delete(T t);
-	public abstract Collection<T> findAll();
+	public abstract List<T> findAll();
+	//public abstract T findById(Long id);
 
 }

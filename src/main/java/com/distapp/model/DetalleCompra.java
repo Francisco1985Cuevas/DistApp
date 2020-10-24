@@ -1,16 +1,30 @@
 package com.distapp.model;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 
 @Entity(name = "DetalleCompra")
 @Table(name = "detallecompra")
 public class DetalleCompra {
+	
+	@Id
+	@GeneratedValue(
+			strategy = GenerationType.IDENTITY
+			)
+	private Long id;
+	
+	@Version
+	private Integer version;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Compra compra;
@@ -76,6 +90,22 @@ public class DetalleCompra {
 
 	public void setSubTotal(Double subTotal) {
 		this.subTotal = subTotal;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 	
 	

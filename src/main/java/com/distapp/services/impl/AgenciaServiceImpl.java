@@ -1,13 +1,18 @@
 package com.distapp.services.impl;
 
-import java.util.Collection;
+import java.util.List;
 
 import com.distapp.model.Agencia;
 import com.distapp.repo.AgenciaRepository;
 import com.distapp.services.AgenciaService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class AgenciaServiceImpl implements AgenciaService {
 
+	@Autowired
 	private AgenciaRepository repo;
 	
 	@Override
@@ -26,8 +31,9 @@ public class AgenciaServiceImpl implements AgenciaService {
 	}
 
 	@Override
-	public Collection<Agencia> findAll() {
+	public List<Agencia> findAll() {
 		return repo.findAll();
 	}
-
+	
+	
 }

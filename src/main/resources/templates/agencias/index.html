@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xlmns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Lista de Clientes</title>
+	<link rel="stylesheet" href="../../AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css">
+</head>
+	<body>
+	
+		<div class="container">
+			<h1 th:text="${titulo}"></h1>
+		</div>
+		<div class="container panel">
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th>Id</th>
+						<th>Nombre</th>
+						<th>Documento</th>
+						<th>Propietario</th>
+						<th>Activo</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="us:${agencias}">
+						<th scope="row" th:text="${us.id}"></th>
+						<td th:text="${us.nombre}"></td>
+						<td th:text="${us.documento}"></td>
+						<td th:text="${us.propietario}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>
