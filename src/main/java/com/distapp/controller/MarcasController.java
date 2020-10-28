@@ -37,11 +37,7 @@ public class MarcasController {
 	@Autowired
 	private MarcaService service; //es como crear una nueva instancia de la Clase MarcaService
 	
-	
-	//template thymeleaf tutorial español
-	//https://www.youtube.com/watch?v=UazPN3oioEA
-	
-	
+	//listado de registros
 	//@GetMapping(path= "/marcas")
 	@GetMapping(path= "")
 	public String index(Model model) {
@@ -58,7 +54,7 @@ public class MarcasController {
 		return "/marcas/list";
 	}
 	
-	
+	//crear registro
 	@GetMapping("/create")
 	public String create(Model model) {
 		Marca entity = new Marca();
@@ -79,8 +75,9 @@ public class MarcasController {
 		return "/marcas/list";
 	}
 	
+	//update registro
 	@GetMapping("/edit/{id}")
-	public String update(@PathVariable("id") long id, Model model) {
+	public String update(@PathVariable(name = "id") long id, Model model) {
 		Marca marca = service.findById(id);
 		model.addAttribute("marca", marca);
 		System.out.println("Estoy en el controller/edit...");
@@ -99,10 +96,7 @@ public class MarcasController {
 		return "/marcas/list";
 	}
 	
-	
-	
-	
-	
+	//delete registro
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable("id") long id, Model model) {
 		Marca marca = service.findById(id);
@@ -124,18 +118,11 @@ public class MarcasController {
 	
 	
 	
-	
-	
-	
-	
 	@GetMapping(path= "/prueba")
 	public String prueba(Model model) {
 		model.addAttribute("title", "SSSSSS");
 		return "/p_helloform";
 	}
-	
-	
-	
 	
 	
 }

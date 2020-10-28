@@ -30,8 +30,7 @@ public class MarcaServiceImpl implements MarcaService {
 
 	@Override
 	public void delete(Marca entity) {
-		repo.delete(entity);
-		
+		repo.delete(entity);		
 	}
 
 	@Override
