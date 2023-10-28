@@ -1,119 +1,150 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
-	
-	<head th:replace="fragments/template :: head"></head>
-	
-	<body class="hold-transition skin-blue sidebar-mini">
-	
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head th:replace="~{fragments/Head :: head}"></head>
+
+	<body class="hold-transition sidebar-mini">
+
 		<div class="wrapper">
-			
-			<header th:replace="fragments/template :: header"></header>
-			
-			<aside th:replace="fragments/template :: aside"></aside>
-			
+
+			<div th:insert="~{fragments/Navbar :: navbar}"></div>
+
+			<div th:insert="~{fragments/Sidebar :: sidebar}"></div>
+
+			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
-				
-				<section th:replace="fragments/template :: content-header" ></section>
-				
-				<section class="content">
-					
-					<div class="row">
-       					
-       					<div class="col-xs-12">
-       					
-       						<div class="box">
-       						
-            					<div class="box-header">
-              						<h3 class="box-title">Data Table With Full Features</h3>
-              						<a href="/marcas/create"><i class="fa fa-plus"></i> Nuevo Registro</a>
-            					</div>
-            					
-            					<div class="box-body">
-            						<table id="DataTable_Marcas" class="table table-bordered table-striped">
-            							<thead>
-							                <tr>
-							                  <th>#Id</th>
-							                  <th>Nombre</th>
-							                  <th>Operaciones</th>
-							                </tr>
-						                </thead>
-						                <tbody>
-							                <tr th:if="${marcas.empty}">
-									            <td colspan="2"> No existen Registros </td>
-									        </tr>
-											<tr th:each="marca: ${marcas}">
-	                  							<td th:text="${marca.getId()}"></td>
-	                  							<td th:text="${marca.getNombre()}"></td>
-	                  							<td>
-	                  								<a th:href="@{/marcas/edit/{id}(id=${marca.id})}" title="Editar Registro"><span class="label label-primary"><i class="fa fa-pencil fa-fw"></i></span></a>
-	                  								<a th:href="@{/marcas/delete/{id}(id=${marca.id})}" title="Eliminar Registro"><span class="label label-danger"><i class="fa fa-trash-o fa-fw"></i></span></a>
-	                  								<a href="#" title="Ver Registro"><span class="label label-success"><i class="fa fa-info fa-fw"></i></span></a>
-	                  							</td>
-	                						</tr>
-							             </tbody>
-							             <tfoot>
-							                <tr>
-							                  <th>#Id</th>
-							                  <th>Nombre</th>
-							                  <th>Operaciones</th>
-							                </tr>
-						                </tfoot>
-            						</table>
-            					 </div>
-            					 
-            				</div>
-            				
-            			</div>
-            			
-            		</div>
-            		
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 th:text="${tituloPrincipal}"></h1>
+							</div>
+
+							<div th:replace="~{fragments/Breadcrumb :: breadcrumb}"></div>
+
+						</div>
+						<div class="row mb-1">
+							<div class="col-sm-12">
+								<div class="float-sm-right">
+									<a class="btn btn-block btn-primary" href="/marcas/add">
+										<i class="fa fa-plus"></i> Nuevo
+									</a>
+								</div>
+							</div>
+						</div>
+					</div><!-- /.container-fluid -->
 				</section>
-				
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+
+								<!-- <span th:text=" 'TOTAL, ' + ${size}"></span><br>
+								<span th:text=" 'TOTAL2, ' + ${marcas.size()}"></span><br> -->
+								<!-- <div th:switch="${marcas.size() == 0} ? ${true} : ${false}">
+									<span th:case="${false}">HAY REGISTROS</span>
+									<span th:case="${true}">NO HAY REGISTROS</span>
+								</div> -->
+								<!-- <div th:switch="${marcas.size() > 0} ? ${true} : ${false}">
+									<div th:case="${true}">HAY REGISTROS</div>
+									<div th:case="${false}">NO HAY REGISTROS</div>
+								</div> -->
+
+								<div th:switch="${marcas.size() > 0} ? ${true} : ${false}">
+									<div class="card">
+										<div class="card-header">
+											<h3 class="card-title" th:text="${cardTitle}"></h3>
+										</div>
+										<!-- /.card-header -->
+										<div class="card-body">
+											<div th:case="${true}">
+												<table id="dataTableMarcas" class="table table-bordered table-striped">
+													<thead>
+														<tr>
+															<th>#Id</th>
+															<th>Nombre</th>
+															<th>Estado</th>
+															<th>Fecha Creación</th>
+															<th>Fecha Actualización</th>
+															<th>Operaciones</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr th:each="marca: ${marcas}">
+															<td th:text="${marca.getId()}"></td>
+															<td th:text="${marca.getNombre()}"></td>
+															<td th:text="${marca.getEstado()}"></td>
+															<td th:text="${marca.getCreatedAt()}"></td>
+															<td th:text="${marca.getUpdatedAt()}"></td>
+															<td>
+																<a th:href="@{/marcas/delete/} + ${marca.getId()}" title="Eliminar Registro">
+																	<span class="badge bg-danger">
+																		<i class="icon fas fa-ban"></i>
+																	</span>
+																</a>
+																<a th:href="@{/marcas/show/} + ${marca.getId()}"  title="Ver Registro">
+																	<span class="badge bg-warning">
+																		<i class="icon fas fa-info"></i>
+																	</span>
+																</a>
+																<a th:href="@{/marcas/edit/} + ${marca.getId()}"  title="Editar Registro">
+																	<span class="badge bg-success">
+																		<i class="fas fa-edit"></i>
+																	</span>
+																</a>
+															</td>
+														</tr>
+													</tbody>
+													<tfoot>
+														<tr>
+															<th>#Id</th>
+															<th>Nombre</th>
+															<th>Estado</th>
+															<th>Fecha Creación</th>
+															<th>Fecha Actualización</th>
+															<th>Operaciones</th>
+														</tr>
+													</tfoot>
+												</table>
+											</div><!-- /.${true} -->
+											<div th:case="${false}">
+												<div class="alert alert-warning alert-dismissible">
+													<h5><i class="icon fas fa-exclamation-triangle"></i> No Existen Registros!</h5>
+													Ingrese un nuevo registro para marcas.
+												</div>
+											</div><!-- /.${false} -->
+										</div>
+										<!-- /.card-body -->
+									</div>
+									<!-- /.card -->
+								</div>
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- /.content -->
 			</div>
-			
-			<footer th:replace="fragments/template :: footer"></footer>
-			
-			<div th:replace="fragments/template :: control-sidebar-bg"></div>
-			
+			<!-- /.content-wrapper -->
+
+			<div th:insert="~{fragments/Footer :: footer}"></div>
+
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
 		</div>
-		
-		<!-- SCRIPTS -->
-		<script th:src="@{/AdminLTE/bower_components/jquery/dist/jquery.min.js}" ></script>
-		<script th:src="@{/AdminLTE/bower_components/jquery-ui/jquery-ui.min.js}"></script>
-		<script>
-		  $.widget.bridge('uibutton', $.ui.button);
-		</script>
-		<script th:src="@{/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
-		<script th:src="@{/AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js}"></script>
-		<script th:src="@{/AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
-		<script th:src="@{/AdminLTE/bower_components/raphael/raphael.min.js}"></script>
-		<!--<script th:src="@{/AdminLTE/bower_components/morris.js/morris.min.js}"></script> -->
-		<script th:src="@{/AdminLTE/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js}"></script>
-		<script th:src="@{/AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js}" ></script>
-		<script th:src="@{/AdminLTE/plugins/jvectormap/jquery-jvectormap-world-mill-en.js}" ></script>
-		<script th:src="@{/AdminLTE/bower_components/jquery-knob/dist/jquery.knob.min.js}"></script>
-		<script th:src="@{/AdminLTE/bower_components/moment/min/moment.min.js}" ></script>
-		<script th:src="@{/AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.js}"></script>
-		<script th:src="@{/AdminLTE/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js}" ></script>
-		<script th:src="@{/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js}"></script>
-		<script th:src="@{/AdminLTE/bower_components/jquery-slimscroll/jquery.slimscroll.min.js}" ></script>
-		<script th:src="@{/AdminLTE/bower_components/fastclick/lib/fastclick.js}"></script>
-		<script th:src="@{/AdminLTE/dist/js/adminlte.min.js}"></script>
-		<!-- <script th:src="@{/AdminLTE/dist/js/pages/dashboard.js}"></script> -->
-		<script th:src="@{/AdminLTE/dist/js/demo.js}"></script>
-		<script>
-			$(function () {
-			  	//se inicializa el DataTable.
-			  	 $('#DataTable_Marcas').DataTable({
-				      'paging'      : true,
-				      'lengthChange': true,
-				      'searching'   : true,
-				      'ordering'    : true,
-				      'info'        : true,
-				      'autoWidth'   : false
-				 })
-			})
-		</script>
-		
+		<!-- ./wrapper -->
+
+		<div th:replace="~{fragments/Scripts :: scripts}"></div>
+
+		<script th:src="@{/AdminLTE-3.2.0/dist/js/pages/marca/marca.js}"></script>
+
 	</body>
 </html>

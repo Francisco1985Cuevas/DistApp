@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head th:replace="~{fragments/Head :: head}"></head>
+
+	<body class="hold-transition sidebar-mini">
+
+		<div class="wrapper">
+
+			<div th:insert="~{fragments/Navbar :: navbar}"></div>
+
+			<div th:insert="~{fragments/Sidebar :: sidebar}"></div>
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<h2 class="text-center display-4" th:text="${tituloPrincipal}"></h2>
+						<div class="row">
+							<div class="col-md-8 offset-md-2">
+								<form th:action="@{/marcas/getByNombre}" th:object="${marca}" method="post">
+									<div class="input-group">
+										<input th:field="*{nombre}" type="search" class="form-control form-control-lg" placeholder="Ingrese el Nombre aquí">
+										<div class="input-group-append">
+											<button type="submit" class="btn btn-lg btn-default">
+												<i class="fa fa-search"></i>
+											</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+
+						<div th:switch="${result != null} ? ${true} : ${false}">
+							<div th:case="${true}">
+								<div class="row mt-3">
+									<div class="col-md-10 offset-md-1">
+										<div class="list-group">
+											<div class="list-group-item">
+												<div class="row">
+													<div class="col px-4">
+														<div>
+															<div class="float-right" th:text="${fecha}"></div>
+															<h3>Búsqueda encontrada...</h3>
+															<p class="mb-0">
+																A continuación se muestran los detalles
+																de la búsqueda solicitada...
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item">
+												<div class="row">
+													<div class="col px-4">
+														<div>
+															<h3>Marca</h3>
+															<p class="mb-0">
+																<b>Código Identificador:</b> <span th:text="${result.getId()}"></span>
+																<br>
+																<b>Nombre:</b> <span th:text="${result.getNombre()}"></span>
+																<br>
+																<b>Estado:</b> <span th:text="${result.getEstado()}"></span>
+																<br>
+																<b>Fecha Creación:</b> <span th:text="${result.getCreatedAt()}"></span>
+																<br>
+																<b>Fecha Actualización:</b> <span th:text="${result.getUpdatedAt()}"></span>
+																<br>
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div><!-- /.${true} -->
+						</div>
+
+					</div>
+				</section>
+
+
+			</div>
+			<!-- /.content-wrapper -->
+
+			<div th:insert="~{fragments/Footer :: footer}"></div>
+
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+
+		<div th:replace="~{fragments/Scripts :: scripts}"></div>
+
+		<script th:src="@{/AdminLTE-3.2.0/dist/js/pages/marca/marca.js}"></script>
+
+	</body>
+</html>

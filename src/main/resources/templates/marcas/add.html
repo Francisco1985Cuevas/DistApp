@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head th:replace="~{fragments/Head :: head}"></head>
+
+	<body class="hold-transition sidebar-mini">
+
+		<div class="wrapper">
+
+			<div th:insert="~{fragments/Navbar :: navbar}"></div>
+
+			<div th:insert="~{fragments/Sidebar :: sidebar}"></div>
+
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1 th:text="${tituloPrincipal}"></h1>
+							</div>
+
+							<div th:replace="~{fragments/Breadcrumb :: breadcrumb}"></div>
+
+						</div>
+					</div><!-- /.container-fluid -->
+				</section>
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<!-- left column -->
+							<div class="col-md-12">
+								<!-- general form elements -->
+								<div class="card card-primary">
+									<div class="card-header">
+										<h3 class="card-title" th:text="${cardTitle}"></h3>
+									</div>
+									<!-- /.card-header -->
+									<!-- form start -->
+									<form id="marcasAddForm" th:action="@{/marcas/add}" th:object="${marcaDTO}" method="post">
+										<div class="card-body">
+											<div class="form-group">
+												<label for="nombre">Nombre</label>
+												<input id="nombre" name="nombre" th:field="*{nombre}" type="text" class="form-control" placeholder="Ingrese Nombre" required minlength="2" maxlength="255">
+												<div th:if="${#fields.hasErrors('nombre')}" class="alert alert-danger alert-dismissible">
+													<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+													<h5><i class="icon fas fa-ban"></i> Error!</h5>
+													<p th:errors="*{nombre}" />
+												</div>
+											</div>
+										</div>
+										<!-- /.card-body -->
+										<div class="card-footer">
+											<button type="submit" class="btn btn-primary" id="btn_guardar_marca">
+												Guardar
+											</button>
+										</div>
+									</form>
+								</div>
+								<!-- /.card -->
+							</div>
+							<!--/.col (left) -->
+						</div>
+						<!-- /.row -->
+					</div><!-- /.container-fluid -->
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.content-wrapper -->
+
+			<div th:insert="~{fragments/Footer :: footer}"></div>
+
+			<!-- Control Sidebar -->
+			<aside class="control-sidebar control-sidebar-dark">
+				<!-- Control sidebar content goes here -->
+			</aside>
+			<!-- /.control-sidebar -->
+		</div>
+		<!-- ./wrapper -->
+
+		<div th:replace="~{fragments/Scripts :: scripts}"></div>
+
+		<script th:src="@{/AdminLTE-3.2.0/dist/js/pages/marca/marca.js}"></script>
+		<script  th:inline="javascript">
+
+		</script>
+	</body>
+</html>

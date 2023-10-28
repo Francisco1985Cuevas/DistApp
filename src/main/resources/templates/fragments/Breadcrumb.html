@@ -1,0 +1,11 @@
+<div th:fragment="breadcrumb" class="col-sm-6">
+	<ol class="breadcrumb float-sm-right">
+		<li th:each="entry : ${breadcrumbs}">
+			<span th:if="${!entryStat.last}" class="breadcrumb-item">
+            	<a th:href="@{${entry.value}}">[[${entry.key}]]</a>
+        	</span>
+			<span th:if="${entryStat.last}" th:text="${entry.key}" class="breadcrumb-item active"></span>
+			/
+		</li>
+	</ol>
+</div><!-- /.col -->

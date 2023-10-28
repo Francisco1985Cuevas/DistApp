@@ -1,0 +1,37 @@
+/*
+ * Author: Francisco Cuevas
+ * Date: 25 Sep 2023
+ * Description:
+ *      This file used to manage the main dashboard (index.html)
+ **/
+
+/* global moment:false, Chart:false, Sparkline:false */
+
+$(function () {
+	'use strict'
+
+	// Make the dashboard widgets sortable Using jquery UI
+	$('.connectedSortable').sortable({
+		placeholder: 'sort-highlight',
+		connectWith: '.connectedSortable',
+		handle: '.card-header, .nav-tabs',
+		forcePlaceholderSize: true,
+		zIndex: 999999
+	})
+	$('.connectedSortable .card-header').css('cursor', 'move')
+
+	// jQuery UI sortable for the todo list
+	$('.todo-list').sortable({
+		placeholder: 'sort-highlight',
+		handle: '.handle',
+		forcePlaceholderSize: true,
+		zIndex: 999999
+	})
+
+	// The Calender
+	$('#calendar').datetimepicker({
+		format: 'L',
+		inline: true
+	})
+
+})
